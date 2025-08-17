@@ -61,7 +61,7 @@ pcall(function()
                         humPart.CFrame = coinToCollect.CFrame
                         task.wait(isMobile and 1.5 or 0.7) -- temps de ramassage selon device
                         humPart.CFrame = CFrame.new(132, 140, 60) + Vector3.new(0, 4, 0) -- retour
-                        task.wait(isMobile and 1.55 or 1.3) -- temps de retour selon device
+                        task.wait(isMobile and 1.6 or 1.3) -- temps de retour selon device
                     else
                         humPart.CFrame = CFrame.new(132, 140, 60) + Vector3.new(0, 4, 0)
                         task.wait(2)
