@@ -1,1 +1,73 @@
+-- Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Créer le ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "InfoGui"
+screenGui.Parent = playerGui
+
+-- Créer la frame principale
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(0, 360, 0, 160)
+frame.Position = UDim2.new(0.5, -180, 0.5, -80)
+frame.BackgroundColor3 = Color3.fromRGB(20, 25, 50) -- bleu nuit
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+
+-- Coins arrondis
+local corner = Instance.new("UICorner")
+corner.CornerRadius = UDim.new(0, 15)
+corner.Parent = frame
+
+-- Texte d'information
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(1, -20, 1, -20)
+label.Position = UDim2.new(0, 10, 0, 10)
+label.Text = [[
+Hello! Thanks for using this script.
+We are now in version 2.2.
+Please do not move when AutoFarm is activated, that will kick you.
+
+A new update with some patches will be available soon.
+Enjoy the script!]]
+label.TextColor3 = Color3.fromRGB(200, 220, 255) -- texte bleu clair
+label.BackgroundTransparency = 1
+label.Font = Enum.Font.GothamBold
+label.TextSize = 18
+label.TextWrapped = true
+label.TextXAlignment = Enum.TextXAlignment.Left
+label.TextYAlignment = Enum.TextYAlignment.Top
+label.Parent = frame
+
+-- Bouton de fermeture (croix rouge)
+local closeButton = Instance.new("TextButton")
+closeButton.Size = UDim2.new(0, 28, 0, 28)
+closeButton.Position = UDim2.new(1, -34, 0, 6)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50) -- rouge
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextScaled = true
+closeButton.Parent = frame
+
+-- Coins arrondis du bouton
+local closeCorner = Instance.new("UICorner")
+closeCorner.CornerRadius = UDim.new(0, 10)
+closeCorner.Parent = closeButton
+
+-- Effet hover sur le bouton
+closeButton.MouseEnter:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(170, 40, 40)
+end)
+closeButton.MouseLeave:Connect(function()
+    closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+end)
+
+-- Fermer le GUI et lancer le script
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+    -- Lancer le script externe
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/summer-update.lua"))()
+end)
