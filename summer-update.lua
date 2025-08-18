@@ -26,12 +26,13 @@ local label = Instance.new("TextLabel")
 label.Size = UDim2.new(1, -20, 1, -20)
 label.Position = UDim2.new(0, 10, 0, 10)
 label.Text = [[
-Hello! Thanks for using this script.
-We are now in version 2.2.
+👋 Welcome! Thanks for using this script.
+We are now in version 🔥 2.2.
 Please do not move when AutoFarm is activated, that will kick you.
 
+⚡ This script is constantly evolving 🚀
 A new update with some patches will be available soon.
-Enjoy the script!]]
+Enjoy the script! 😎]]
 label.TextColor3 = Color3.fromRGB(200, 220, 255) -- texte bleu clair
 label.BackgroundTransparency = 1
 label.Font = Enum.Font.GothamBold
@@ -69,5 +70,5 @@ end)
 closeButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
     -- Lancer le script externe
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/beachballv2-2.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/beachballv2-2.lua"))()
 end)
