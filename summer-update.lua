@@ -33,7 +33,7 @@ pcall(function()
     -- AutoFarm
     -------------------
     local isMobile = game:GetService("UserInputService").TouchEnabled
-
+    
     function startAutoFarm()
         task.spawn(function()
             while _G.Farm do
@@ -59,7 +59,7 @@ pcall(function()
                         -- choisir une pièce aléatoire
                         local coinToCollect = validCoins[math.random(1, #validCoins)]
                         humPart.CFrame = coinToCollect.CFrame
-                        task.wait(isMobile and 1.5 or 0.7) -- temps de ramassage selon device
+                        task.wait(isMobile and 1.6 or 0.9) -- temps de ramassage selon device
                         humPart.CFrame = CFrame.new(132, 140, 60) + Vector3.new(0, 4, 0) -- retour
                         task.wait(isMobile and 1.6 or 1.3) -- temps de retour selon device
                     else
@@ -76,8 +76,6 @@ pcall(function()
     function stopAutoFarm()
         _G.Farm = false
     end
-
-
     -------------------
     -- God Mode
     -------------------
