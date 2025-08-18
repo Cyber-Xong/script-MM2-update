@@ -6,13 +6,15 @@ local playerGui = player:WaitForChild("PlayerGui")
 -- Créer le ScreenGui
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "InfoGui"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 screenGui.Parent = playerGui
 
--- Créer la frame principale
+-- Frame principale
 local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 380, 0, 180) -- largeur augmentée pour réduire la marge droite
-frame.Position = UDim2.new(0.5, -190, 0.5, -90) -- centrage ajusté pour nouvelle largeur
-frame.BackgroundColor3 = Color3.fromRGB(15, 25, 60) -- bleu nuit
+frame.Size = UDim2.new(0, 380, 0, 180)
+frame.Position = UDim2.new(0.5, -190, 0.5, -90)
+frame.BackgroundColor3 = Color3.fromRGB(15, 25, 60)
 frame.BorderSizePixel = 0
 frame.Parent = screenGui
 
@@ -21,7 +23,7 @@ local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 15)
 corner.Parent = frame
 
--- Contour lumineux autour de la frame
+-- Contour lumineux
 local frameStroke = Instance.new("UIStroke")
 frameStroke.Thickness = 3
 frameStroke.Color = Color3.fromRGB(80, 160, 255)
@@ -29,16 +31,8 @@ frameStroke.Parent = frame
 
 -- Texte d'information
 local label = Instance.new("TextLabel")
-label.Size = UDim2.new(1, -20, 1, -20) -- marge interne conservée
+label.Size = UDim2.new(1, -20, 1, -20)
 label.Position = UDim2.new(0, 10, 0, 10)
-label.Text = [[
-👋 Welcome! Thanks for using this script.
-We are now in version 🔥 2.2.
-Please do not move when AutoFarm is activated, that will kick you.
-
-⚡ This script is constantly evolving 🚀
-A new update with some patches will be available soon.
-Enjoy the script! 😎]]
 label.TextColor3 = Color3.fromRGB(180, 220, 255)
 label.BackgroundTransparency = 1
 label.Font = Enum.Font.GothamBold
@@ -48,10 +42,29 @@ label.TextXAlignment = Enum.TextXAlignment.Left
 label.TextYAlignment = Enum.TextYAlignment.Top
 label.Parent = frame
 
--- Bouton de fermeture "X"
+-- Texte à afficher lettre par lettre
+local fullText = [[
+👋 Welcome! Thanks for using this script.
+We are now in version 🔥 2.2.
+Please do not move when AutoFarm is activated, that will kick you.
+
+⚡ This script is constantly evolving 🚀
+A new update with some patches will be available soon.
+Enjoy the script! 😎]]
+
+-- Animation d’écriture du texte
+spawn(function()
+    label.Text = ""
+    for i = 1, #fullText do
+        label.Text = string.sub(fullText, 1, i)
+        wait(0.02)
+    end
+end)
+
+-- Bouton de fermeture
 local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.new(0, 25, 0, 25)
-closeButton.Position = UDim2.new(1, -25, 0, -1) -- position ajustée pour la nouvelle largeur
+closeButton.Position = UDim2.new(1, -30, 0, 5)
 closeButton.BackgroundColor3 = Color3.fromRGB(70, 140, 255)
 closeButton.Text = "X"
 closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -64,13 +77,13 @@ local closeCorner = Instance.new("UICorner")
 closeCorner.CornerRadius = UDim.new(0, 5)
 closeCorner.Parent = closeButton
 
--- Glow néon du bouton
+-- Contour lumineux du bouton
 local closeStroke = Instance.new("UIStroke")
 closeStroke.Thickness = 2
 closeStroke.Color = Color3.fromRGB(100, 180, 255)
 closeStroke.Parent = closeButton
 
--- Fonction pulsation néon
+-- Glow pulsant du bouton
 spawn(function()
     local direction = 1
     while closeButton.Parent do
@@ -84,18 +97,34 @@ spawn(function()
     end
 end)
 
--- Effet hover du bouton
+-- Animation pulsation bouton (taille)
+spawn(function()
+    local scale = 1
+    local growing = true
+    while closeButton.Parent do
+        if growing then
+            scale = scale + 0.01
+        else
+            scale = scale - 0.01
+        end
+        closeButton.Size = UDim2.new(0, 25 * scale, 0, 25 * scale)
+        if scale >= 1.2 or scale <= 0.9 then
+            growing = not growing
+        end
+        wait(0.03)
+    end
+end)
+
+-- Hover du bouton
 closeButton.MouseEnter:Connect(function()
     closeButton.BackgroundColor3 = Color3.fromRGB(50, 130, 255)
-    closeButton.Size = UDim2.new(0, 28, 0, 28)
 end)
 
 closeButton.MouseLeave:Connect(function()
     closeButton.BackgroundColor3 = Color3.fromRGB(70, 140, 255)
-    closeButton.Size = UDim2.new(0, 25, 0, 25)
 end)
 
--- Fermer le GUI et lancer le script
+-- Fermer GUI et lancer script
 closeButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/beachballv2-2.lua"))()
