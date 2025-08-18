@@ -33,7 +33,7 @@ pcall(function()
     -- AutoFarm
     -------------------
     local isMobile = game:GetService("UserInputService").TouchEnabled
-    
+
     function startAutoFarm()
         task.spawn(function()
             while _G.Farm do
