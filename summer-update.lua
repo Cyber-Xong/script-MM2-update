@@ -1,5 +1,6 @@
 -- Services
 local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
@@ -124,8 +125,31 @@ closeButton.MouseLeave:Connect(function()
     closeButton.BackgroundColor3 = Color3.fromRGB(70, 140, 255)
 end)
 
--- Fermer GUI et lancer script
+-- Fermer GUI avec transition vers la gauche + fade-out
 closeButton.MouseButton1Click:Connect(function()
+    local tweenInfo = TweenInfo.new(0.7, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+    -- Slide + fade frame
+    local tweenFrame = TweenService:Create(frame, tweenInfo, {
+        Position = UDim2.new(-1, 0, 0.5, -90),
+        BackgroundTransparency = 1
+    })
+
+    -- Fade-out du texte
+    local tweenText = TweenService:Create(label, tweenInfo, {
+        TextTransparency = 1
+    })
+
+    -- Fade-out du contour lumineux
+    local tweenStroke = TweenService:Create(frameStroke, tweenInfo, {
+        Transparency = 1
+    })
+
+    tweenFrame:Play()
+    tweenText:Play()
+    tweenStroke:Play()
+
+    tweenFrame.Completed:Wait()
     screenGui:Destroy()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/beachballv2-2.lua"))()
 end)
