@@ -48,10 +48,10 @@ local fullText = [[
 👋 Welcome! Thanks for using this script.
 We are now in version 🔥 2.2.
 Please do not move when AutoFarm is activated, that will kick you.
-
 ⚡ This script is constantly evolving 🚀
 A new update with some patches will be available soon.
-Enjoy the script! 😎]]
+⏳ Please wait ~15s while the script loads...
+And enjoy the script! 😎]]
 
 -- Animation d’écriture du texte
 spawn(function()
